@@ -15,5 +15,4 @@
 # elimino archivos para kubernetes
 secretos.txt
 jiraprojectcloudkey.json
-**/*.yaml
 

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientdeployment
+  namespace: nsjiraproject
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: clientcontainer
+        image: <image_client>
+        env:
+          - name: NODE_ENV
+            valueFrom:
+              secretKeyRef:
+                name: front-credentials
+                key: NODE_ENV
+        ports:
+        - containerPort: 8080

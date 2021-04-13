@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apideployment
+  namespace: nsjiraproject
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.11
+        command: ["/cloud_sql_proxy",
+                  "-instances=jiracloneproject:us-central1:jiracloneinstance=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        volumeMounts:
+        - name: cloudsql-instance-credentials
+          mountPath: /secrets/cloudsql
+          readOnly: true
+      - name: apicontainer
+        image: <image_api>
+        env:
+          - name: NODE_ENV
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: NODE_ENV
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: JWT_SECRET
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: PORT
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_HOST
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_PORT
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_USER
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_PASS
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_NAME
+        ports:
+        - containerPort: 3000
+      volumes:
+      - name: cloudsql-instance-credentials
+        secret:
+          secretName: cloudsql-instance-credentials

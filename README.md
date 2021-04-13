@@ -10,7 +10,7 @@
 ## Develop en docker 🛠
 
 - Instala [DOCKER](https://www.docker.com/get-started).
-- Clona el repositorio: `git clone https://github.com/oldboyxx/jira_clone_docker.git`.
+- Clona el repositorio: `git clone https://github.com/TheTitanOz/jira_clone_docker.git`.
 - Accede al repositorio `cd jira_clone_docker`.
 - Desplegamos `mariadb` utilizando docker `docker run --name mariadbcontainer -e MYSQL_ROOT_PASSWORD=<user_password> -e MYSQL_DATABASE=<database_name> -p 3306:3306 -d mariadb:latest`.
 - Crea los archivos `.env` basándote de los archivos `.env.example` del repositorio de `api` y de `client`.

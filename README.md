@@ -22,6 +22,7 @@
 
 - Habilita la opción de Kubernetes en DOCKER `Docker->Settings->Kubernetes->Enable Kubernetes`.
 - Creamos los secretos básicos básados en el archivo `.env.example` con el comando `kubectl create secret generic db-credentials --from-literal=NODE_ENV=production --from-literal=JWT_SECRET=productionjwt_secretkey --from-literal=PORT=3000 --from-literal=DB_HOST=localhost --from-literal=DB_PORT=3306 --from-literal=DB_USER=<user> --from-literal=DB_PASS=<user_password> --from-literal=DB_NAME=<database_name> -n nsjiraproject`.
+- Reemplazamos el archivo `nginx.conf` con el archivo `nginx.kubernete.conf`.
 - Accedemos al repositorio de api `cd api` y creamos la imagen `docker build . -t <image_api>`.
 - Abrimos el archivo `deployment.api.yaml` y cambiamos `29: image: <image_api>` por el nombre del tag que creamos la imagen.
 - Finalmente, se ejecutan los archivos de `deployment` y de `service` respectivamente. `kubectl apply -f deployment.api.yaml` y `kubectl apply -f service.api.yaml`.

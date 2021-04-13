@@ -1,0 +1,19 @@
+# dependencies
+**/node_modules
+**/build
+
+# misc
+**/.DS_Store
+
+# environment config
+**/.env
+
+# production
+**/build
+**/npm-debug.log*
+
+# elimino archivos para kubernetes
+secretos.txt
+jiraprojectcloudkey.json
+**/*.yaml
+

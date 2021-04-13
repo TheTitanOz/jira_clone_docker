@@ -1,0 +1,8 @@
+/build
+*.md
+*.yaml
+yarn.lock
+/cypress
+/jest
+.env
+.env.example
